@@ -63,13 +63,14 @@ client = pyrelic.Client(account_id='12345', api_key='1234567890abcdef123456789')
         """
         status_code = error.response.status_code
         message = error.message
+        content = error.response.content
 
         if 403 == status_code:
             raise NewRelicInvalidApiKeyException(message)
         elif 404 == status_code:
             raise NewRelicUnknownApplicationException(message)
         elif 422 == status_code:
-            raise NewRelicInvalidParameterException(message)
+            raise NewRelicInvalidParameterException(content)
         else:
             raise NewRelicApiException(message)
 
@@ -164,8 +165,45 @@ client = pyrelic.Client(account_id='12345', api_key='1234567890abcdef123456789')
     def get_dashboard_html_fragment(self):
         raise NotImplemented
 
-    def notify_deployment(self):
-        raise NotImplemented
+    def notify_deployment(self, application_id=None, application_name=None, description=None, revision=None, changelog=None, user=None):
+        """
+        Notify NewRelic of a deployment.
+        http://newrelic.github.io/newrelic_api/NewRelicApi/Deployment.html
+
+        :param description:
+        :param revision:
+        :param changelog:
+        :param user:
+        :return:
+        """
+
+        endpoint = "https://rpm.newrelic.com"
+        uri = "{endpoint}/deployments.xml".format(endpoint=endpoint)
+
+        deploy_event = {}
+
+        if not application_id is None:
+            deploy_event['deployment[application_id]'] = application_id
+        elif not application_name is None:
+            deploy_event['deployment[app_name]'] = application_name
+        else:
+            raise "Must specify either application_id or application_name."
+
+        if not description is None:
+            deploy_event['deployment[description]'] = description
+
+        if not revision is None:
+            deploy_event['deployment[revision]'] = revision
+
+        if not changelog is None:
+            deploy_event['deployment[changelog]'] = changelog
+
+        if not user is None:
+            deploy_event['deployment[user]'] = user
+
+        response = self._make_post_request(uri, deploy_event)
+
+        return response
 
     def get_metric_names(self, agent_id, re=None, limit=5000):
         """
