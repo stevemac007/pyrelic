@@ -187,7 +187,7 @@ client = pyrelic.Client(account_id='12345', api_key='1234567890abcdef123456789')
         elif not application_name is None:
             deploy_event['deployment[app_name]'] = application_name
         else:
-            raise "Must specify either application_id or application_name."
+            raise NewRelicInvalidParameterException("Must specify either application_id or application_name.")
 
         if not description is None:
             deploy_event['deployment[description]'] = description
@@ -202,8 +202,12 @@ client = pyrelic.Client(account_id='12345', api_key='1234567890abcdef123456789')
             deploy_event['deployment[user]'] = user
 
         response = self._make_post_request(uri, deploy_event)
+        result = {}
 
-        return response
+        for value in response:
+            result[value.tag] = value.text
+
+        return result
 
     def get_metric_names(self, agent_id, re=None, limit=5000):
         """
