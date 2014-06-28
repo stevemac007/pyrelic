@@ -174,7 +174,7 @@ client = pyrelic.Client(account_id='12345', api_key='1234567890abcdef123456789')
         :param revision:
         :param changelog:
         :param user:
-        :return:
+        :return: A dictionary containing all of the returned keys from the API
         """
 
         endpoint = "https://rpm.newrelic.com"
