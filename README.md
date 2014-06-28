@@ -1,5 +1,4 @@
-# Pyrelic [![Build Status](https://api.travis-ci.org/andrewgross/pyrelic.png#master)](https://travis-ci.org/andrewgross/pyrelic)
-
+# Pyrelic [![Build Status](https://api.travis-ci.org/andrewgross/pyrelic.png#master)](https://travis-ci.org/andrewgross/pyrelic) [![Coverage Status](https://coveralls.io/repos/stevemac007/pyrelic/badge.png?branch=master)](https://coveralls.io/r/stevemac007/pyrelic?branch=master)
 
 A New Relic client library written in Python.
 
