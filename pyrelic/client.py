@@ -62,15 +62,14 @@ client = pyrelic.Client(account_id='12345', api_key='1234567890abcdef123456789')
         for the user to handle as they see fit.
         """
         status_code = error.response.status_code
-        message = error.message
-        content = error.response.content
+        message = error.message        content = error.response.content
 
         if 403 == status_code:
             raise NewRelicInvalidApiKeyException(message)
         elif 404 == status_code:
             raise NewRelicUnknownApplicationException(message)
         elif 422 == status_code:
-            raise NewRelicInvalidParameterException(content)
+            raise NewRelicInvalidParameterException(message)
         else:
             raise NewRelicApiException(message)
 
