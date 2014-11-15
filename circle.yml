@@ -11,4 +11,3 @@ general:
     - coverage.xml
     - nosetests.xml
     - junit.xml
-    - *.xml
