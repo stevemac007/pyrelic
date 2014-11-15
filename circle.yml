@@ -4,9 +4,11 @@ dependencies:
 
 test:
   override:
-    - make unit 
+    - make unit
 
 general:
   artifacts:
     - coverage.xml
     - nosetests.xml
+    - junit.xml
+    - *.xml
