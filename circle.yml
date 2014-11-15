@@ -4,4 +4,9 @@ dependencies:
 
 test:
   override:
-      - nosetests
+    - nosetests --with-xunit --cover-xml --cover-html
+
+general:
+  artifacts:
+    - coverage.xml
+    - nosetests.xml
