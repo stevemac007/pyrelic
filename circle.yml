@@ -1,3 +1,7 @@
+dependencies:
+  pre:
+    - pip install -r development.txt
+
 test:
   override:
       - nosetests
