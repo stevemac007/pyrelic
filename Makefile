@@ -31,7 +31,7 @@ run_test:
 	@if [ -d tests/$(suite) ]; then \
 		echo "Running \033[0;32m$(suite)\033[0m test suite"; \
 		make clean && \
-			nosetests --stop --with-coverage --cover-xml --cover-package=$(PACKAGE) \
+			nosetests --with-xunit --xunit-file=junit.xml --stop --with-coverage --cover-xml --cover-package=$(PACKAGE) \
 				--cover-branches --verbosity=2 -s tests/$(suite); \
 	fi
 
